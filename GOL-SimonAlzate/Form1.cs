@@ -16,6 +16,7 @@ namespace GOL_SimonAlzate
         bool[,] universe = new bool[30, 30];
         bool[,] scratchPad = new bool[30, 30];
 
+        //string message = " ";
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
@@ -46,7 +47,7 @@ namespace GOL_SimonAlzate
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // Read the universe
-                    var read = universe[x, y];
+                    //var read = universe[x, y];
                     // count neighbors
                     int count = CountNeighborsFinite(x,y);
                     // Apply rules
@@ -241,6 +242,7 @@ namespace GOL_SimonAlzate
 	
             }
             return count;
+
         }
         private int CountNeighborsToroidal(int x, int y)
         {
