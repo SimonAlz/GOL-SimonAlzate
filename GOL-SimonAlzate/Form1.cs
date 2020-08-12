@@ -286,5 +286,11 @@ namespace GOL_SimonAlzate
             }	
             return count;	
         }
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+        }
     }
 }
