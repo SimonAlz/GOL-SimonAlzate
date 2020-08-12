@@ -53,22 +53,22 @@ namespace GOL_SimonAlzate
                     // Any living cell in the current universe with less than 2 living neighbors dies in the next generation
                     if (universe[x,y] = true && count < 2)
                     {
-                        universe[x, y] = false;
+                        scratchPad[x, y] = false;
                     }
                     // Any living cell with more than 3 living neighbors will die in the next generation
                     else if (universe[x,y] = true && count > 3)
                     {
-                        universe[x, y] = false;
+                        scratchPad[x, y] = false;
                     }
                     // Any living cell with 2 or 3 living neighbors will live on into the next generation
                     if (universe[x, y] = true && count == 2 || count == 3)
                     {
-                        universe[x, y] = true;
+                        scratchPad[x, y] = true;
                     }
                     // Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
                     if (universe[x, y] = false && count == 3)
                     {
-                        universe[x, y] = true;
+                        scratchPad[x, y] = true;
                     }
 
                     //Turn cells on or off in ScratchPad
