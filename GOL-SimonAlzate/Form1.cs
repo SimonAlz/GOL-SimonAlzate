@@ -40,6 +40,7 @@ namespace GOL_SimonAlzate
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            int isAlive = 0;
 
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -52,24 +53,29 @@ namespace GOL_SimonAlzate
                     int count = CountNeighborsFinite(x,y);
                     // Apply rules
                     // Any living cell in the current universe with less than 2 living neighbors dies in the next generation
-                    if (universe[x,y] = true && count < 2)
+                    if (universe[x,y] == true && count < 2)
                     {
                         scratchPad[x, y] = false;
                     }
                     // Any living cell with more than 3 living neighbors will die in the next generation
-                    else if (universe[x,y] = true && count > 3)
+                    else if (universe[x,y] == true && count > 3)
                     {
                         scratchPad[x, y] = false;
                     }
                     // Any living cell with 2 or 3 living neighbors will live on into the next generation
-                    if (universe[x, y] = true && count == 2 || count == 3)
+                    if (universe[x, y] == true && (count == 2 || count == 3))
                     {
                         scratchPad[x, y] = true;
                     }
                     // Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
-                    if (universe[x, y] = false && count == 3)
+                    if (universe[x, y] == false && count == 3)
                     {
                         scratchPad[x, y] = true;
+                    }
+
+                    if (scratchPad[x,y])
+                    {
+                        isAlive++;
                     }
 
                     //Turn cells on or off in ScratchPad
@@ -85,7 +91,7 @@ namespace GOL_SimonAlzate
             generations++;
 
             // Update status strip generations
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString() + "\t Alive: " + isAlive.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -217,16 +223,6 @@ namespace GOL_SimonAlzate
                     {
                         continue;
                     }
-                    // if xCheck is less than 0 then continue
-                    if (yCheck < 0)
-                    {
-                        continue;
-                    }
-                    // if yCheck is less than 0 then continue
-                    if (yCheck < 0)
-                    {
-                        continue;
-                    }
                     // if xCheck is greater than or equal too xLen then continue
                     if (xCheck >= xLen)
                     {
@@ -238,6 +234,8 @@ namespace GOL_SimonAlzate
                         continue;
                     }
                     if (universe[xCheck, yCheck] == true) count++;
+
+
                 }
 	
             }
@@ -291,6 +289,14 @@ namespace GOL_SimonAlzate
         {
             ColorDialog dlg = new ColorDialog();
 
+            dlg.Color = cellColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                cellColor = dlg.Color;
+
+                graphicsPanel1.Invalidate();
+            }
         }
     }
 }
