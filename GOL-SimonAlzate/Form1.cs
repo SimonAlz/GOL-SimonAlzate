@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace GOL_SimonAlzate
 {
@@ -48,7 +49,7 @@ namespace GOL_SimonAlzate
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // Read the universe
-                    //var read = universe[x, y];
+                    scratchPad[x, y] = false;
                     // count neighbors
                     int count = CountNeighborsFinite(x,y);
                     // Apply rules
@@ -180,6 +181,7 @@ namespace GOL_SimonAlzate
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     universe[x, y] = false;
+                    scratchPad[x, y] = false;
                 }
             }
             timer.Enabled = false;
@@ -309,6 +311,36 @@ namespace GOL_SimonAlzate
             {
                 cellColor = dlg.Color;
 
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        private void gridColorToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            dlg.Color = gridColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color gridCol = gridColor;
+            
+            if (gridColorToolStripMenuItem.Checked == true)
+            {
+                gridColor = gridCol;
+                graphicsPanel1.Invalidate();
+            }
+            else if (gridToolStripMenuItem.Checked == false)
+            {
+                gridColor = Color.Transparent;
                 graphicsPanel1.Invalidate();
             }
         }
