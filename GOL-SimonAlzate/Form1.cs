@@ -21,28 +21,29 @@ namespace GOL_SimonAlzate
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
-
+        bool Grid = true;
         // The Timer class
         Timer timer = new Timer();
 
         // Generation count
         int generations = 0;
 
+        // Miliseconds count
+        int mili = 100;
         public Form1()
         {
             InitializeComponent();
 
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = mili; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
         }
-
         // Calculate the next generation of cells
+        int isAlive = 0;
         private void NextGeneration()
         {
-            int isAlive = 0;
-
+            isAlive = 0;
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -51,7 +52,17 @@ namespace GOL_SimonAlzate
                     // Read the universe
                     scratchPad[x, y] = false;
                     // count neighbors
-                    int count = CountNeighborsFinite(x,y);
+                    int count = 0;
+                    if (finiteToolStripMenuItem.Checked == true || toroidalToolStripMenuItem.Checked == false)
+                    {
+                        toroidalToolStripMenuItem.Checked = false;
+                        count = CountNeighborsFinite(x, y);
+                    }
+                    else if (toroidalToolStripMenuItem.Checked == true || finiteToolStripMenuItem.Checked == false)
+                    {
+                        finiteToolStripMenuItem.Checked = false;
+                        count = CountNeighborsToroidal(x, y);
+                    }
                     // Apply rules
                     // Any living cell in the current universe with less than 2 living neighbors dies in the next generation
                     if (universe[x,y] == true && count < 2)
@@ -78,9 +89,6 @@ namespace GOL_SimonAlzate
                     {
                         isAlive++;
                     }
-
-                    //Turn cells on or off in ScratchPad
-
                 }
             }
             // Copy the ScratchPad to the universe
@@ -110,8 +118,17 @@ namespace GOL_SimonAlzate
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
             float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
+            Pen gridPen = new Pen(Color.Black, 1);
+
             // A Pen for drawing the grid lines (color, width)
-            Pen gridPen = new Pen(gridColor, 1);
+            if (gridToolStripMenuItem.Checked == true)
+            {
+                gridPen = new Pen(gridColor, 1);
+            }
+            else if (gridToolStripMenuItem.Checked == false)
+            {
+                gridPen = new Pen(Color.Transparent, 1);
+            }
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
@@ -134,9 +151,15 @@ namespace GOL_SimonAlzate
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
-
                     // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    if (Grid)
+                    {
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
 
@@ -168,6 +191,7 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Exit program
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -175,6 +199,7 @@ namespace GOL_SimonAlzate
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Iterate through the universe in the y, left to right
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -190,16 +215,19 @@ namespace GOL_SimonAlzate
             graphicsPanel1.Invalidate();
         }
 
+        // Start button
         private void startToolStripButton_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
         }
 
+        // Pause button
         private void pauseToolStripButton_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
         }
 
+        // Next button
         private void nextToolStripButton_Click(object sender, EventArgs e)
         {
             NextGeneration();
@@ -286,7 +314,7 @@ namespace GOL_SimonAlzate
             }	
             return count;	
         }
-
+        // Method to Change Back Color
         private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -301,6 +329,7 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Method to change cell color
         private void cellColorToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -315,6 +344,7 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Method to change grid Color
         private void gridColorToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -329,20 +359,10 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Method the grid disappear and appear
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Color gridCol = gridColor;
-            
-            if (gridColorToolStripMenuItem.Checked == true)
-            {
-                gridColor = gridCol;
-                graphicsPanel1.Invalidate();
-            }
-            else if (gridToolStripMenuItem.Checked == false)
-            {
-                gridColor = Color.Transparent;
-                graphicsPanel1.Invalidate();
-            }
+            graphicsPanel1.Invalidate();
         }
     }
 }
