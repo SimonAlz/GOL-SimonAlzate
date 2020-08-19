@@ -191,7 +191,7 @@ namespace GOL_SimonAlzate
             this.hUDToolStripMenuItem.CheckOnClick = true;
             this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
-            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.hUDToolStripMenuItem.Text = "HUD";
             // 
             // gridToolStripMenuItem
@@ -200,20 +200,22 @@ namespace GOL_SimonAlzate
             this.gridToolStripMenuItem.CheckOnClick = true;
             this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.gridToolStripMenuItem.Text = "Grid";
             this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(144, 6);
             // 
             // toroidalToolStripMenuItem
             // 
+            this.toroidalToolStripMenuItem.CheckOnClick = true;
             this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
-            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.toroidalToolStripMenuItem.Text = "Toroidal";
+            this.toroidalToolStripMenuItem.CheckedChanged += new System.EventHandler(this.toroidalToolStripMenuItem_CheckedChanged);
             // 
             // finiteToolStripMenuItem
             // 
@@ -221,8 +223,9 @@ namespace GOL_SimonAlzate
             this.finiteToolStripMenuItem.CheckOnClick = true;
             this.finiteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.finiteToolStripMenuItem.Name = "finiteToolStripMenuItem";
-            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.finiteToolStripMenuItem.Text = "Finite";
+            this.finiteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.finiteToolStripMenuItem_CheckedChanged);
             // 
             // runToolStripMenuItem
             // 
@@ -275,20 +278,21 @@ namespace GOL_SimonAlzate
             // fromSeedToolStripMenuItem
             // 
             this.fromSeedToolStripMenuItem.Name = "fromSeedToolStripMenuItem";
-            this.fromSeedToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.fromSeedToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.fromSeedToolStripMenuItem.Text = "From Seed";
             // 
             // fromCurrentSeedToolStripMenuItem
             // 
             this.fromCurrentSeedToolStripMenuItem.Name = "fromCurrentSeedToolStripMenuItem";
-            this.fromCurrentSeedToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.fromCurrentSeedToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.fromCurrentSeedToolStripMenuItem.Text = "From Current Seed";
             // 
             // fromTimeToolStripMenuItem
             // 
             this.fromTimeToolStripMenuItem.Name = "fromTimeToolStripMenuItem";
-            this.fromTimeToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.fromTimeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.fromTimeToolStripMenuItem.Text = "From Time";
+            this.fromTimeToolStripMenuItem.Click += new System.EventHandler(this.fromTimeToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 

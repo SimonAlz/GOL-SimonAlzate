@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,13 +18,15 @@ namespace GOL_SimonAlzate
         bool[,] universe = new bool[30, 30];
         bool[,] scratchPad = new bool[30, 30];
 
-        //string message = " ";
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
-        bool Grid = true;
+
         // The Timer class
         Timer timer = new Timer();
+
+        // Random number generator
+        Random rnd = new Random();
 
         // Generation count
         int generations = 0;
@@ -56,11 +59,13 @@ namespace GOL_SimonAlzate
                     if (finiteToolStripMenuItem.Checked == true || toroidalToolStripMenuItem.Checked == false)
                     {
                         toroidalToolStripMenuItem.Checked = false;
+                        toroidalToolStripMenuItem.CheckState = unchecked(0);
                         count = CountNeighborsFinite(x, y);
                     }
                     else if (toroidalToolStripMenuItem.Checked == true || finiteToolStripMenuItem.Checked == false)
                     {
                         finiteToolStripMenuItem.Checked = false;
+                        finiteToolStripMenuItem.CheckState = unchecked(0);
                         count = CountNeighborsToroidal(x, y);
                     }
                     // Apply rules
@@ -152,14 +157,7 @@ namespace GOL_SimonAlzate
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
                     // Outline the cell with a pen
-                    if (Grid)
-                    {
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-                    }
-                    else
-                    {
-                        continue;
-                    }
                 }
             }
 
@@ -362,6 +360,53 @@ namespace GOL_SimonAlzate
         // Method the grid disappear and appear
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            graphicsPanel1.Invalidate();
+        }
+
+        private void toroidalToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (toroidalToolStripMenuItem.Checked == true)
+            {
+                finiteToolStripMenuItem.Checked = true;
+                finiteToolStripMenuItem.CheckState = checked(0);
+            }
+            else if (toroidalToolStripMenuItem.Checked == false && finiteToolStripMenuItem.Checked == false)
+            {
+                toroidalToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void finiteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (finiteToolStripMenuItem.Checked == true)
+            {
+                toroidalToolStripMenuItem.Checked = true;
+                toroidalToolStripMenuItem.CheckState = checked(0);
+            }
+            else if (toroidalToolStripMenuItem.Checked == false && finiteToolStripMenuItem.Checked == false)
+            {
+                finiteToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                   int num = rnd.Next(0,2);
+                    if (num == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else if (num == 1 || num == 2)
+                    {
+                        universe[x, y] = false;
+                    }
+                }
+            }
             graphicsPanel1.Invalidate();
         }
     }
