@@ -40,6 +40,10 @@ namespace GOL_SimonAlzate
         // Default Boundary Type
         string boundaryType = "Finite";
 
+        // Width and Height of the universe and scratchpad
+        int width = 30;
+        int height = 30;
+
         public Form1()
         {
             InitializeComponent();
@@ -133,7 +137,7 @@ namespace GOL_SimonAlzate
             Pen gridPen = new Pen(Color.Black, 1);
 
             // Brush for the HUD
-            Brush HUDbrush = new SolidBrush(Color.Blue);
+            Brush HUDbrush = new SolidBrush(Color.Brown);
 
             Rectangle rect = graphicsPanel1.ClientRectangle;
 
@@ -235,6 +239,7 @@ namespace GOL_SimonAlzate
             this.Close();
         }
 
+        // New button
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Iterate through the universe in the y, left to right
@@ -310,6 +315,7 @@ namespace GOL_SimonAlzate
             return count;
 
         }
+
         private int CountNeighborsToroidal(int x, int y)
         {
             int count = 0;	
@@ -403,6 +409,7 @@ namespace GOL_SimonAlzate
             graphicsPanel1.Invalidate();
         }
 
+        // Randomize universe from time
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -424,16 +431,29 @@ namespace GOL_SimonAlzate
             graphicsPanel1.Invalidate();
         }
 
+        // Change from toroidal to finite
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toroidalToolStripMenuItem.Checked = false;
             finiteToolStripMenuItem.Checked = true;
         }
 
+        // Change from finite to toroidal
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toroidalToolStripMenuItem.Checked = true;
             finiteToolStripMenuItem.Checked = false;
+        }
+
+        // Options dialog box
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsDialog dlg = new OptionsDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+
+            }
         }
     }
 }
