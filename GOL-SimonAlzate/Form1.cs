@@ -22,6 +22,9 @@ namespace GOL_SimonAlzate
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
 
+        // Font for text
+        Font font = new Font("Arial", 12f);
+
         // The Timer class
         Timer timer = new Timer();
 
@@ -33,6 +36,10 @@ namespace GOL_SimonAlzate
 
         // Miliseconds count
         int mili = 100;
+
+        // Default Boundary Type
+        string boundaryType = "Finite";
+
         public Form1()
         {
             InitializeComponent();
@@ -125,6 +132,11 @@ namespace GOL_SimonAlzate
 
             Pen gridPen = new Pen(Color.Black, 1);
 
+            // Brush for the HUD
+            Brush HUDbrush = new SolidBrush(Color.Blue);
+
+            Rectangle rect = graphicsPanel1.ClientRectangle;
+
             // A Pen for drawing the grid lines (color, width)
             if (gridToolStripMenuItem.Checked == true)
             {
@@ -132,6 +144,7 @@ namespace GOL_SimonAlzate
             }
             else if (gridToolStripMenuItem.Checked == false)
             {
+                // Transparent if the grid has been set to false
                 gridPen = new Pen(Color.Transparent, 1);
             }
 
@@ -161,9 +174,35 @@ namespace GOL_SimonAlzate
                 }
             }
 
+            // Placement of the HUD in the window
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Near;
+            stringFormat.LineAlignment = StringAlignment.Far;
+
+            if (finiteToolStripMenuItem.Checked == true)
+            {
+                boundaryType = "Finite";
+            }
+            else if (toroidalToolStripMenuItem.Checked == true)
+            {
+                boundaryType = "Toroidal";
+            }
+
+            // Printing the HUD
+            if (hudToolStripMenuItem.Checked == true)
+            {
+                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType, font, HUDbrush, rect, stringFormat);
+            }
+            // If HUD is false then make it transparent
+            else if (hudToolStripMenuItem.Checked == false)
+            {
+                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType, font, Brushes.Transparent, rect, stringFormat);
+            }
+
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
+            HUDbrush.Dispose();
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -363,39 +402,13 @@ namespace GOL_SimonAlzate
             graphicsPanel1.Invalidate();
         }
 
-        private void toroidalToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (toroidalToolStripMenuItem.Checked == true)
-            {
-                finiteToolStripMenuItem.Checked = true;
-                finiteToolStripMenuItem.CheckState = checked(0);
-            }
-            else if (toroidalToolStripMenuItem.Checked == false && finiteToolStripMenuItem.Checked == false)
-            {
-                toroidalToolStripMenuItem.Checked = true;
-            }
-        }
-
-        private void finiteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (finiteToolStripMenuItem.Checked == true)
-            {
-                toroidalToolStripMenuItem.Checked = true;
-                toroidalToolStripMenuItem.CheckState = checked(0);
-            }
-            else if (toroidalToolStripMenuItem.Checked == false && finiteToolStripMenuItem.Checked == false)
-            {
-                finiteToolStripMenuItem.Checked = true;
-            }
-        }
-
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int y = 0; y < universe.GetLength(1); y++)
             {
-                // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    // Create random number for a random universe
                    int num = rnd.Next(0,2);
                     if (num == 0)
                     {
@@ -408,6 +421,18 @@ namespace GOL_SimonAlzate
                 }
             }
             graphicsPanel1.Invalidate();
+        }
+
+        private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toroidalToolStripMenuItem.Checked = false;
+            finiteToolStripMenuItem.Checked = true;
+        }
+
+        private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toroidalToolStripMenuItem.Checked = true;
+            finiteToolStripMenuItem.Checked = false;
         }
     }
 }
