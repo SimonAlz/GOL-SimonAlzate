@@ -179,6 +179,7 @@ namespace GOL_SimonAlzate
             stringFormat.Alignment = StringAlignment.Near;
             stringFormat.LineAlignment = StringAlignment.Far;
 
+            // boundaryType will change depending on which one is selected
             if (finiteToolStripMenuItem.Checked == true)
             {
                 boundaryType = "Finite";
