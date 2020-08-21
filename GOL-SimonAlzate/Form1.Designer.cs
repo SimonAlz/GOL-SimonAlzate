@@ -103,7 +103,7 @@ namespace GOL_SimonAlzate
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(764, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(764, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -118,7 +118,7 @@ namespace GOL_SimonAlzate
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newToolStripMenuItem
@@ -181,7 +181,7 @@ namespace GOL_SimonAlzate
             this.toroidalToolStripMenuItem,
             this.finiteToolStripMenuItem});
             this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
-            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(55, 24);
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(55, 26);
             this.viewToolStripMenuItem1.Text = "View";
             // 
             // hudToolStripMenuItem
@@ -235,35 +235,36 @@ namespace GOL_SimonAlzate
             this.nextToolStripMenuItem,
             this.toToolStripMenuItem});
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(48, 24);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(48, 26);
             this.runToolStripMenuItem.Text = "Run";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripButton_Click);
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripButton_Click);
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.nextToolStripMenuItem.Text = "Next";
             this.nextToolStripMenuItem.Click += new System.EventHandler(this.nextToolStripButton_Click);
             // 
             // toToolStripMenuItem
             // 
             this.toToolStripMenuItem.Name = "toToolStripMenuItem";
-            this.toToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.toToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toToolStripMenuItem.Text = "To";
+            this.toToolStripMenuItem.Click += new System.EventHandler(this.toToolStripMenuItem_Click);
             // 
             // randomizeToolStripMenuItem
             // 
@@ -272,7 +273,7 @@ namespace GOL_SimonAlzate
             this.fromCurrentSeedToolStripMenuItem,
             this.fromTimeToolStripMenuItem});
             this.randomizeToolStripMenuItem.Name = "randomizeToolStripMenuItem";
-            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
+            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(98, 26);
             this.randomizeToolStripMenuItem.Text = "Randomize";
             // 
             // fromSeedToolStripMenuItem
@@ -305,7 +306,7 @@ namespace GOL_SimonAlzate
             this.toolStripSeparator3,
             this.resetToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 26);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // backColorToolStripMenuItem1
@@ -365,9 +366,9 @@ namespace GOL_SimonAlzate
             this.pauseToolStripButton,
             this.nextToolStripButton,
             this.toolStripSeparator7});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(764, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(764, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -377,7 +378,7 @@ namespace GOL_SimonAlzate
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.newToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -387,7 +388,7 @@ namespace GOL_SimonAlzate
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.openToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.openToolStripButton.Text = "&Open";
             // 
             // saveToolStripButton
@@ -396,13 +397,13 @@ namespace GOL_SimonAlzate
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.saveToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.saveToolStripButton.Text = "&Save";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
             // 
             // startToolStripButton
             // 
@@ -410,7 +411,7 @@ namespace GOL_SimonAlzate
             this.startToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("startToolStripButton.Image")));
             this.startToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.startToolStripButton.Name = "startToolStripButton";
-            this.startToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.startToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.startToolStripButton.Text = "&Start";
             this.startToolStripButton.ToolTipText = "Start";
             this.startToolStripButton.Click += new System.EventHandler(this.startToolStripButton_Click);
@@ -421,7 +422,7 @@ namespace GOL_SimonAlzate
             this.pauseToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pauseToolStripButton.Image")));
             this.pauseToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pauseToolStripButton.Name = "pauseToolStripButton";
-            this.pauseToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.pauseToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.pauseToolStripButton.Text = "&Pause";
             this.pauseToolStripButton.ToolTipText = "Pause";
             this.pauseToolStripButton.Click += new System.EventHandler(this.pauseToolStripButton_Click);
@@ -432,14 +433,14 @@ namespace GOL_SimonAlzate
             this.nextToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("nextToolStripButton.Image")));
             this.nextToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextToolStripButton.Name = "nextToolStripButton";
-            this.nextToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.nextToolStripButton.Size = new System.Drawing.Size(29, 28);
             this.nextToolStripButton.Text = "&Next";
             this.nextToolStripButton.Click += new System.EventHandler(this.nextToolStripButton_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 31);
             // 
             // statusStrip1
             // 
@@ -542,10 +543,10 @@ namespace GOL_SimonAlzate
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel1.ContextMenuStrip = this.contextMenuStrip1;
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 55);
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 61);
             this.graphicsPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(764, 344);
+            this.graphicsPanel1.Size = new System.Drawing.Size(764, 338);
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);

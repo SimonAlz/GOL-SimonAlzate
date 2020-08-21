@@ -41,6 +41,9 @@ namespace GOL_SimonAlzate
         int width = 30;
         int height = 30;
 
+        // Limit of generations from the user
+        int genLimit = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -64,16 +67,14 @@ namespace GOL_SimonAlzate
                     scratchPad[x, y] = false;
                     // count neighbors
                     int count = 0;
-                    if (finiteToolStripMenuItem.Checked == true || toroidalToolStripMenuItem.Checked == false)
+                    // If finite is checked
+                    if (finiteToolStripMenuItem.Checked == true)
                     {
-                        toroidalToolStripMenuItem.Checked = false;
-                        toroidalToolStripMenuItem.CheckState = unchecked(0);
                         count = CountNeighborsFinite(x, y);
                     }
-                    else if (toroidalToolStripMenuItem.Checked == true || finiteToolStripMenuItem.Checked == false)
+                    // If toroidal is checked
+                    else if (toroidalToolStripMenuItem.Checked == true)
                     {
-                        finiteToolStripMenuItem.Checked = false;
-                        finiteToolStripMenuItem.CheckState = unchecked(0);
                         count = CountNeighborsToroidal(x, y);
                     }
                     // Apply rules
@@ -201,6 +202,10 @@ namespace GOL_SimonAlzate
                 e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType + "\nUniverse size: {Width = " + width + ", Height = " + height + "}" , font, Brushes.Transparent, rect, stringFormat);
             }
 
+            if (generations == genLimit)
+            {
+                timer.Enabled = false;
+            }
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -456,6 +461,8 @@ namespace GOL_SimonAlzate
                 timer.Interval= dlg.MilisecondsNumber;
                 width = dlg.WidthNumber;
                 height = dlg.HeightNumber;
+                universe = new bool[width, height];
+                scratchPad = new bool[width, height];
                 graphicsPanel1.Invalidate();
             }
         }
@@ -476,12 +483,27 @@ namespace GOL_SimonAlzate
                     scratchPad[x, y] = false;
                 }
             }
+            timer.Interval = 100;
+            width = 30;
+            height = 30;
+            isAlive = 0;
             universe = new bool[30, 30];
             scratchPad = new bool[30, 30];
             timer.Enabled = false;
             generations = 0;
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             graphicsPanel1.Invalidate();
+        }
+
+        private void toToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToDialog dlg = new ToDialog();
+            dlg.ToNumber = genLimit + 1;
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                genLimit = dlg.ToNumber;
+                timer.Enabled = true;
+            }
         }
     }
 }
