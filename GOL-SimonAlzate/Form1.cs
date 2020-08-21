@@ -449,9 +449,11 @@ namespace GOL_SimonAlzate
         {
             OptionsDialog dlg = new OptionsDialog();
             dlg.MilisecondsNumber = timer.Interval;
+            dlg.WidthNumber = width;
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 timer.Interval= dlg.MilisecondsNumber;
+                width = dlg.WidthNumber;
                 graphicsPanel1.Invalidate();
             }
         }
