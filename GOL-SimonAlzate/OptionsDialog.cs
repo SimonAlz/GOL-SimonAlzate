@@ -16,5 +16,44 @@ namespace GOL_SimonAlzate
         {
             InitializeComponent();
         }
+
+        // Changing number of Milisecods in a generation
+        public int MilisecondsNumber
+        {
+            get
+            {
+                return (int)milisecondsNumericUpDown.Value;
+            }
+            set
+            {
+                milisecondsNumericUpDown.Value = value;
+            }
+        }
+
+        // Changing Width of the universe
+        public int WidthNumber
+        {
+            get
+            {
+                return (int)widthNumericUpDown.Value;
+            }
+            set
+            {
+                widthNumericUpDown.Value = value;
+            }
+        }
+
+        // Changing Height of the universe
+        public int HeightNumber
+        {
+            get
+            {
+                return (int)heightNumericUpDown.Value;
+            }
+            set
+            {
+                heightNumericUpDown.Value = value;
+            }
+        }
     }
 }

@@ -34,9 +34,6 @@ namespace GOL_SimonAlzate
         // Generation count
         int generations = 0;
 
-        // Miliseconds count
-        int mili = 100;
-
         // Default Boundary Type
         string boundaryType = "Finite";
 
@@ -49,7 +46,7 @@ namespace GOL_SimonAlzate
             InitializeComponent();
 
             // Setup the timer
-            timer.Interval = mili; // milliseconds
+            timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
         }
@@ -137,7 +134,7 @@ namespace GOL_SimonAlzate
             Pen gridPen = new Pen(Color.Black, 1);
 
             // Brush for the HUD
-            Brush HUDbrush = new SolidBrush(Color.Brown);
+            Brush HUDbrush = new SolidBrush(Color.DarkRed);
 
             Rectangle rect = graphicsPanel1.ClientRectangle;
 
@@ -196,12 +193,12 @@ namespace GOL_SimonAlzate
             // Printing the HUD
             if (hudToolStripMenuItem.Checked == true)
             {
-                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType, font, HUDbrush, rect, stringFormat);
+                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType + "\nUniverse size: {Width = " + width + ", Height = " + height + "}", font, HUDbrush, rect, stringFormat);
             }
             // If HUD is false then make it transparent
             else if (hudToolStripMenuItem.Checked == false)
             {
-                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType, font, Brushes.Transparent, rect, stringFormat);
+                e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType + "\nUniverse size: {Width = " + width + ", Height = " + height + "}" , font, Brushes.Transparent, rect, stringFormat);
             }
 
             // Cleaning up pens and brushes
@@ -436,6 +433,7 @@ namespace GOL_SimonAlzate
         {
             toroidalToolStripMenuItem.Checked = false;
             finiteToolStripMenuItem.Checked = true;
+            graphicsPanel1.Invalidate();
         }
 
         // Change from finite to toroidal
@@ -443,17 +441,43 @@ namespace GOL_SimonAlzate
         {
             toroidalToolStripMenuItem.Checked = true;
             finiteToolStripMenuItem.Checked = false;
+            graphicsPanel1.Invalidate();
         }
 
         // Options dialog box
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
-
+            dlg.MilisecondsNumber = timer.Interval;
             if (DialogResult.OK == dlg.ShowDialog())
             {
-
+                timer.Interval= dlg.MilisecondsNumber;
+                graphicsPanel1.Invalidate();
             }
+        }
+
+        private void hudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.Invalidate();
+        }
+
+        // Reset button
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    scratchPad[x, y] = false;
+                }
+            }
+            universe = new bool[30, 30];
+            scratchPad = new bool[30, 30];
+            timer.Enabled = false;
+            generations = 0;
+            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            graphicsPanel1.Invalidate();
         }
     }
 }
