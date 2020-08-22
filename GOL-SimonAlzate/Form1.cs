@@ -215,6 +215,7 @@ namespace GOL_SimonAlzate
                 e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType + "\nUniverse size: {Width = " + width + ", Height = " + height + "}" , font, Brushes.Transparent, rect, stringFormat);
             }
 
+            // if generations hit the limit
             if (generations == genLimit)
             {
                 timer.Enabled = false;
@@ -270,6 +271,7 @@ namespace GOL_SimonAlzate
             timer.Enabled = false;
             generations = 0;
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            genLimit = 0;
             graphicsPanel1.Invalidate();
         }
 
@@ -466,8 +468,11 @@ namespace GOL_SimonAlzate
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
+            // Change number of miliseconds in a generation
             dlg.MilisecondsNumber = timer.Interval;
+            // Change width of universe
             dlg.WidthNumber = width;
+            // Change height of unmiverse
             dlg.HeightNumber = height;
             if (DialogResult.OK == dlg.ShowDialog())
             {
@@ -522,6 +527,7 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Save file
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -571,6 +577,7 @@ namespace GOL_SimonAlzate
             }
         }
 
+        // Open file
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -617,7 +624,7 @@ namespace GOL_SimonAlzate
                 scratchPad = new bool[maxWidth, maxHeight];
                 // Reset the file pointer back to the beginning of the file.
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
-
+                int i = 0;
                 // Iterate through the file again, this time reading in the cells.
                 while (!reader.EndOfStream)
                 {
@@ -638,16 +645,17 @@ namespace GOL_SimonAlzate
                         // set the corresponding cell in the universe to alive.
                         if (row[xPos] == 'O')
                         {
-                            //universe[xPos, ] = true;
+                            universe[xPos, i] = true;
                         }
 
                         // If row[xPos] is a '.' (period) then
                         // set the corresponding cell in the universe to dead.
                         if (row[xPos] == '.')
                         {
-                             //universe[xPos, ] = false;
+                            universe[xPos, i] = false;
                         }
                     }
+                    i++;
                 }
                 // Close the file.
                 reader.Close();

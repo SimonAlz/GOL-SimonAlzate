@@ -68,9 +68,9 @@
             // 
             this.toNumericUpDown.Location = new System.Drawing.Point(188, 55);
             this.toNumericUpDown.Maximum = new decimal(new int[] {
-            276447232,
-            23283,
-            0,
+            -1304428545,
+            434162106,
+            542,
             0});
             this.toNumericUpDown.Minimum = new decimal(new int[] {
             1,
@@ -102,7 +102,7 @@
             this.MinimizeBox = false;
             this.Name = "ToDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ToDialogcs";
+            this.Text = "To Dialog";
             ((System.ComponentModel.ISupportInitialize)(this.toNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
