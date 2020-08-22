@@ -54,6 +54,16 @@ namespace GOL_SimonAlzate
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+
+            // Read settings
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            timer.Interval = Properties.Settings.Default.Miliseconds;
+            width = Properties.Settings.Default.UniverseWidth;
+            height = Properties.Settings.Default.UniverseHeight;
+            universe = new bool[width, height];
+            scratchPad = new bool[width, height];
         }
         // Calculate the next generation of cells
         int isAlive = 0;
@@ -478,6 +488,7 @@ namespace GOL_SimonAlzate
         // Reset button
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Reset();
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
@@ -488,6 +499,9 @@ namespace GOL_SimonAlzate
             }
             // Reset variables to normal
             timer.Interval = 100;
+            graphicsPanel1.BackColor = Color.White;
+            gridColor = Color.Black;
+            cellColor = Color.Gray;
             width = 30;
             height = 30;
             universe = new bool[30, 30];
@@ -624,22 +638,33 @@ namespace GOL_SimonAlzate
                         // set the corresponding cell in the universe to alive.
                         if (row[xPos] == 'O')
                         {
-                            universe[xPos, xPos] = true;
+                            //universe[xPos, ] = true;
                         }
 
                         // If row[xPos] is a '.' (period) then
                         // set the corresponding cell in the universe to dead.
                         if (row[xPos] == '.')
                         {
-                            universe[xPos, xPos] = false;
+                             //universe[xPos, ] = false;
                         }
                     }
                 }
-
                 // Close the file.
                 reader.Close();
             }
             graphicsPanel1.Invalidate();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+            Properties.Settings.Default.GridColor = gridColor;
+            Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.Miliseconds = timer.Interval;
+            Properties.Settings.Default.UniverseWidth = width;
+            Properties.Settings.Default.UniverseHeight = height;
+
+            Properties.Settings.Default.Save();
         }
     }
 }
