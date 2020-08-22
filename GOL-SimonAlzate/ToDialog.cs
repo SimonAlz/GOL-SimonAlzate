@@ -15,9 +15,19 @@ namespace GOL_SimonAlzate
         public ToDialog()
         {
             InitializeComponent();
-            toNumericUpDown.Minimum = toNumericUpDown.Value;
         }
 
+        public int Minumum
+        {
+            get
+            {
+                return (int)toNumericUpDown.Minimum;
+            }
+            set
+            {
+                toNumericUpDown.Minimum = value;
+            }
+        }
 
         // Stop timer when generations hit this number
         public int ToNumber
