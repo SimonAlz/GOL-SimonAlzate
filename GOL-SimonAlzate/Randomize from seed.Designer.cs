@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.seedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.OKButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.seedNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -44,23 +44,23 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Seed";
             // 
-            // numericUpDown1
+            // seedNumericUpDown
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(156, 73);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.seedNumericUpDown.Location = new System.Drawing.Point(156, 73);
+            this.seedNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.seedNumericUpDown.Minimum = new decimal(new int[] {
             -2147483648,
             0,
             0,
             -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(179, 22);
-            this.numericUpDown1.TabIndex = 1;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.seedNumericUpDown.Name = "seedNumericUpDown";
+            this.seedNumericUpDown.Size = new System.Drawing.Size(179, 22);
+            this.seedNumericUpDown.TabIndex = 1;
+            this.seedNumericUpDown.Value = new decimal(new int[] {
             2713,
             0,
             0,
@@ -95,15 +95,15 @@
             this.ClientSize = new System.Drawing.Size(381, 192);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.OKButton);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.seedNumericUpDown);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Randomize_from_seed";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Randomize_from_seed";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.Text = "Randomize from seed";
+            ((System.ComponentModel.ISupportInitialize)(this.seedNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,7 +112,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown seedNumericUpDown;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button cancelButton;
     }

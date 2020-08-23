@@ -16,5 +16,18 @@ namespace GOL_SimonAlzate
         {
             InitializeComponent();
         }
+
+        // Set the seed from the user into a random universe
+        public int randomSeed
+        {
+            get
+            {
+                return (int)seedNumericUpDown.Value;
+            }
+            set
+            {
+                seedNumericUpDown.Value = value;
+            }
+        }
     }
 }

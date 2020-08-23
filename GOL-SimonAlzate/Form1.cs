@@ -46,6 +46,9 @@ namespace GOL_SimonAlzate
         // Limit of generations from the user
         int genLimit = 0;
 
+        // Seed that will be set by the user in the dialog window
+        int seed = 2713;
+
         public Form1()
         {
             InitializeComponent();
@@ -699,12 +702,12 @@ namespace GOL_SimonAlzate
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    int num = randObj.Next(0, 3);
-                    if (num == 0)
+                    seed = randObj.Next(0, 3);
+                    if (seed == 0)
                     {
                         universe[x, y] = true;
                     }
-                    else if (num == 1 || num == 2)
+                    else if (seed == 1 || seed == 2)
                     {
                         universe[x, y] = false;
                     }
@@ -714,16 +717,29 @@ namespace GOL_SimonAlzate
         }
 
         // Create a Random object with the specified seed.
-        private void FixedSeedRandoms(int seed)
+        private void FixedSeedRandoms(int num)
         {
-            Random fixRand = new Random(seed);
+            Random fixRand = new Random(num);
 
             RunIntNDoubleRandoms(fixRand);
         }
 
+        // Randomize the universe from a seed set by the user
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FixedSeedRandoms(30);
+            Randomize_from_seed dlg = new Randomize_from_seed();
+            dlg.randomSeed = seed;
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                seed = dlg.randomSeed;
+                FixedSeedRandoms(seed);
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FixedSeedRandoms(seed);
             graphicsPanel1.Invalidate();
         }
     }

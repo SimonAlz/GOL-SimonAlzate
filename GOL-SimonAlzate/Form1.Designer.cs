@@ -290,6 +290,7 @@ namespace GOL_SimonAlzate
             this.fromCurrentSeedToolStripMenuItem.Name = "fromCurrentSeedToolStripMenuItem";
             this.fromCurrentSeedToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.fromCurrentSeedToolStripMenuItem.Text = "From Current Seed";
+            this.fromCurrentSeedToolStripMenuItem.Click += new System.EventHandler(this.fromCurrentSeedToolStripMenuItem_Click);
             // 
             // fromTimeToolStripMenuItem
             // 
