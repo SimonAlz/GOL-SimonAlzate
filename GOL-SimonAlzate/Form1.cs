@@ -55,7 +55,7 @@ namespace GOL_SimonAlzate
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
 
-            // Read settings
+            // Read saved settings
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             gridColor = Properties.Settings.Default.GridColor;
             cellColor = Properties.Settings.Default.CellColor;
@@ -111,6 +111,7 @@ namespace GOL_SimonAlzate
                         scratchPad[x, y] = true;
                     }
 
+                    // if a cell is alive then the cell count increases
                     if (scratchPad[x,y])
                     {
                         isAlive++;
@@ -150,6 +151,7 @@ namespace GOL_SimonAlzate
             // Brush for the HUD
             Brush HUDbrush = new SolidBrush(Color.DarkRed);
 
+            // Create a rectangle the size of the graphics panel so the HUD will always be on the bottom left of the program
             Rectangle rect = graphicsPanel1.ClientRectangle;
 
             // A Pen for drawing the grid lines (color, width)
@@ -185,7 +187,7 @@ namespace GOL_SimonAlzate
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
                     // Outline the cell with a pen
-                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                 }
             }
 
@@ -215,11 +217,12 @@ namespace GOL_SimonAlzate
                 e.Graphics.DrawString("Generations: " + generations + "\nCell count: " + isAlive + "\nBoundary Type: " + boundaryType + "\nUniverse size: {Width = " + width + ", Height = " + height + "}" , font, Brushes.Transparent, rect, stringFormat);
             }
 
-            // if generations hit the limit
+            // if generations hit the limit then stop timer
             if (generations == genLimit)
             {
                 timer.Enabled = false;
             }
+
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -268,6 +271,7 @@ namespace GOL_SimonAlzate
                     scratchPad[x, y] = false;
                 }
             }
+            // Reset some of the variables
             timer.Enabled = false;
             generations = 0;
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
@@ -434,7 +438,8 @@ namespace GOL_SimonAlzate
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // Create random number for a random universe
-                   int num = rnd.Next(0,2);
+                    int num = rnd.Next(0,3);
+
                     if (num == 0)
                     {
                         universe[x, y] = true;
@@ -477,10 +482,13 @@ namespace GOL_SimonAlzate
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 timer.Interval= dlg.MilisecondsNumber;
-                width = dlg.WidthNumber;
-                height = dlg.HeightNumber;
-                universe = new bool[width, height];
-                scratchPad = new bool[width, height];
+                if (dlg.WidthNumber != width)
+                {
+                    width = dlg.WidthNumber;
+                    height = dlg.HeightNumber;
+                    universe = new bool[width, height];
+                    scratchPad = new bool[width, height];
+                }
                 graphicsPanel1.Invalidate();
             }
         }
@@ -493,11 +501,14 @@ namespace GOL_SimonAlzate
         // Reset button
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Reset the settings that were saved
             Properties.Settings.Default.Reset();
+
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    // Restart the universe
                     universe[x, y] = false;
                     scratchPad[x, y] = false;
                 }
@@ -519,6 +530,7 @@ namespace GOL_SimonAlzate
         {
             ToDialog dlg = new ToDialog();
             dlg.ToNumber = genLimit + 1;
+            // Limit of the generations to which it will run to and then stop when it hits this limit
             dlg.Minumum = generations + 1;
             if (DialogResult.OK == dlg.ShowDialog())
             {
@@ -567,9 +579,8 @@ namespace GOL_SimonAlzate
                         }
                         writer.Write(currentRow);
                     }
+                    // Create a new line after one line is written
                     writer.Write("\n");
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
                 }
 
                 // After all rows and columns have been written then close the file.
@@ -577,7 +588,7 @@ namespace GOL_SimonAlzate
             }
         }
 
-        // Open file
+        // Open a file
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -624,7 +635,7 @@ namespace GOL_SimonAlzate
                 scratchPad = new bool[maxWidth, maxHeight];
                 // Reset the file pointer back to the beginning of the file.
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
-                int i = 0;
+                int y = 0;
                 // Iterate through the file again, this time reading in the cells.
                 while (!reader.EndOfStream)
                 {
@@ -645,34 +656,75 @@ namespace GOL_SimonAlzate
                         // set the corresponding cell in the universe to alive.
                         if (row[xPos] == 'O')
                         {
-                            universe[xPos, i] = true;
+                            universe[xPos, y] = true;
                         }
 
                         // If row[xPos] is a '.' (period) then
                         // set the corresponding cell in the universe to dead.
                         if (row[xPos] == '.')
                         {
-                            universe[xPos, i] = false;
+                            universe[xPos, y] = false;
                         }
                     }
-                    i++;
+                    // Increment by one on the y value
+                    y++;
                 }
                 // Close the file.
                 reader.Close();
             }
+            // Resetting limit of generations and generations to the default value
+            genLimit = 0;
+            generations = 0;
             graphicsPanel1.Invalidate();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Settings that are being saved after closing the form
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.GridColor = gridColor;
             Properties.Settings.Default.CellColor = cellColor;
             Properties.Settings.Default.Miliseconds = timer.Interval;
             Properties.Settings.Default.UniverseWidth = width;
             Properties.Settings.Default.UniverseHeight = height;
-
+            
+            // Save the current settings
             Properties.Settings.Default.Save();
+        }
+
+        private void RunIntNDoubleRandoms(Random randObj)
+        {
+            
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    int num = randObj.Next(0, 3);
+                    if (num == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else if (num == 1 || num == 2)
+                    {
+                        universe[x, y] = false;
+                    }
+                }
+                randObj.NextDouble();
+            }
+        }
+
+        // Create a Random object with the specified seed.
+        private void FixedSeedRandoms(int seed)
+        {
+            Random fixRand = new Random(seed);
+
+            RunIntNDoubleRandoms(fixRand);
+        }
+
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FixedSeedRandoms(30);
+            graphicsPanel1.Invalidate();
         }
     }
 }
